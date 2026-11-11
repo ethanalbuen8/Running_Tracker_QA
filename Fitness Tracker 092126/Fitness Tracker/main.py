@@ -1,6 +1,7 @@
 from Model.distance_calculator import DistanceCalculator
 from Model.pace_calculator import PaceCalculator
 from Model.race_time_calculator import RaceTimeCalculator
+from Model.time_conversion import TimeConversion
 
 class Main:
 
@@ -23,7 +24,7 @@ class Main:
                     print(f"You chose {km_or_mi}.")
 
                     pace = float(input(f"Type your pace in min/{km_or_mi}: "))
-                    time = float(input("Type duration you ran in mins: "))
+                    time = float(input(f"Type duration you ran in mins: "))
 
                     dc = DistanceCalculator(pace,time)
                     dist = dc.distance_calculator()
@@ -62,21 +63,9 @@ class Main:
                     rtc = RaceTimeCalculator(dist,pace)
                     time = rtc.race_time()
                     print("\n========================================================================")
-                    if time >= 60:
-                        hr = time / 60
-                        print(f"Hr: {int(hr)}")
-                        if hr % 2 != 0:
-                            hr_dec = hr - int(hr) #No extra zeros
-                            min = round(hr_dec * 60)
-                            print(f"Min: {min}")
-                            print(f"You ran {int(hr)} hr {min} min")
-                        if min % 2 != 0:
-                            min_dec = min - int(min) #No extra zeros, carry the decimal
-                            sec = round(min_dec * 60)
-                            print(f"Sec: {sec}")
-                            print(f"You ran {int(hr)} hr {min} min {sec} sec")
-                    else:
-                        print(f"You ran {time} mins")
+                    time_conversion = TimeConversion(time)
+                    ttime = time_conversion.convert()
+                    print(f"You will finish the race in {ttime}.")
                     print("========================================================================\n")
                     break
 
